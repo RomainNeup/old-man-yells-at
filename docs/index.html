@@ -14,22 +14,18 @@
     </script>
 </head>
 
-<body class="flex w-full h-full flex-col items-center  bg-opacity-0 pt-12"
+<body class="grid w-full h-full flex-col place-content-center bg-opacity-0 pt-12"
     style="background-image:linear-gradient(rgba(248, 248, 248, 0.95), rgba(135, 80, 156, 0.9)), url('old_man_yells_at.png')">
-
-    <div class="flex flex-col gap-y-4 bg-white p-8 shadow-md rounded-2xl">
+    <div class="flex flex-col gap-y-4 bg-white p-8 shadow-md rounded-2xl w-fit">
         <h1 class="font-bold text-4xl text-cyan-600 mb-4">Old Man Yells At!</h1>
-        <input
-            class="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-cyan-100 file:text-cyan-600 hover:file:bg-cyan-200"
-            type="file" id="uploadInput" accept="image/*">
-        <button
-            class="rounded-full py-2 px-4 border-0 text-sm font-semibold bg-cyan-100 text-cyan-600 hover:bg-cyan-200"
-            onclick="transformImage()">
-            Yell at
-        </button>
-        <div class="flex justify-center items-end gap-4">
-            <img class="h-16 aspect-[259/202] w-fit hidden" id="output" src="">
-            <a class="rounded-full py-2 px-4 text-sm font-semibold bg-violet-100 text-violet-600 hover:bg-violet-200 hidden"
+        <div class="flex justify-center flex-col gap-4">
+            <input
+                class="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-cyan-100 file:text-cyan-600 hover:file:bg-cyan-200"
+                type="file" id="uploadInput" accept="image/*" onchange="transformImage()" />
+            <div class="flex justify-center">
+                <img class="h-32 aspect-[259/202] w-fit hidden" id="output" src="">
+            </div>
+            <a class="rounded-full py-2 px-4 text-sm font-semibold bg-violet-100 text-violet-600 hover:bg-violet-200 text-center hidden"
                 id="link" href="" download="">
                 Download
             </a>
