@@ -57,7 +57,34 @@ func yellerWrapper() js.Func {
 	return yellerFunc
 }
 
+func intensifiesWrapper() js.Func {
+	intensifiesFunc := js.FuncOf(func(this js.Value, args []js.Value) any {
+		if len(args) != 1 {
+			return newError(fmt.Errorf("expected 1 argument, got %d", len(args)))
+		}
+		input := args[0].String()
+		_, input, _ = strings.Cut(input, ";base64,")
+		decoded, err := base64.StdEncoding.DecodeString(input)
+		if err != nil {
+			return newError(fmt.Errorf("decoding base64: %w", err))
+		}
+
+		im, _, err := image.Decode(bytes.NewReader(decoded))
+		if err != nil {
+			return newError(fmt.Errorf("decoding image: %w", err))
+		}
+
+		intensifies := yeller.Intensifies(im)
+
+		return map[string]any{
+			"result": intensifies.String(),
+		}
+	})
+	return intensifiesFunc
+}
+
 func main() {
 	js.Global().Set("yellAt", yellerWrapper())
+	js.Global().Set("intensifies", intensifiesWrapper())
 	<-make(chan bool)
 }
